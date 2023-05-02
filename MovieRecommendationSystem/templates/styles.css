@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
+
+body {
+    /*font-family: 'Irish Grover', cursive;*/
+    background: url('../images/searchPageBackground.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
+.page_heading {
+    margin: 2px;
+    font-size: 24px;
+    padding: 16px;
+    font-family: 'Irish Grover', cursive;
+    align-self: center;
+    color: white;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 1);
+}
+
+.search_section {
+    margin-top: 60px;
+}
+
+.search_button {
+    background-color: rgb(188, 184, 18);
+    margin: 2px;
+    font-size: 20px;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: 'Irish Grover', cursive;
+    align-self: center;
+}
+
+.search_button:hover {
+    background-color: rgba(17, 17, 17, 0.67);
+    transition-duration: 0.5s;
+    color: white;
+    box-shadow: 0 0 16px rgba(232, 232, 232, 0.74);
+}
+
+
+.query_wrapper {
+    background-color: rgb(233, 175, 150);
+    border-radius: 20px;
+    align-self: center;
+    margin: 10px;
+}
+
+.query_wrapper input {
+    font-size: 24px;
+    border: none;
+    outline: none;
+    padding: 16px;
+    min-width: 500px;
+    font-family: 'Irish Grover', cursive;
+    align-self: center;
+    background: transparent;
+}
+
+.query_wrapper:hover {
+    box-shadow: 0 0 16px rgba(255, 251, 23, 0.58);
+}
+
+.mic_icon {
+    background: white;
+    border-radius: 50%;
+    align-self: center;
+    margin: 16px;
+    padding: 14px 16px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    transition: 0.4s ease;
+}
+
+.mic_icon:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.mic_icon.listening {
+    background: #1843bb;
+    color: white;
+}
+
+::placeholder {
+    color: rgba(33, 33, 33, 0.9);
+}
+
+#mikeClicked:hover {
+    box-shadow: 0 0 16px rgba(255, 251, 23, 0.58);
+
+
+}
+
+
+

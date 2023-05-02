@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
+.row_alignment {
+    display: flex;
+    flex-direction: row;
+}
+
+.column_alignment {
+    display: flex;
+    flex-direction: column;
+}
+
+.search_results {
+    font-family: 'Irish Grover', cursive;
+    font-size: 18px;
+    padding: 18px;
+    margin: 4px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 12px;
+    width: 400px;
+}
+
+.main_content_wrapper {
+    background: rgba(207, 199, 115, 0.9);;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}

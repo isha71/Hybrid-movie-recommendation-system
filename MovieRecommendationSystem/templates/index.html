@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hybrid Movie Recommendation System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles2.css">9+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="search_section column_alignment">
+    <form name="movie_form" class="column_alignment" action="searchResult.html" style="align-items: center">
+        <img src="../images/popcorn.png" style="max-width: 180px; height: auto; object-fit: contain">
+        <h1 class="page_heading">Hybrid Movie Recommendation System</h1>
+        <div class="row_alignment query_wrapper">
+            <input id="query_input" class="input_button" type="text" required
+                   placeholder="Search for a Similar Movie Recommendation" name="movie_title">
+            <i id="mic_button" onclick="runSpeechRecog()" class="fa fa-microphone mic_icon"></i>
+        </div>
+
+        <!--        <button onclick="runSpeechRecog()">-->
+        <!--            <i class="fa fa-microphone" style="font-size:24px;color:red"></i>-->
+        <!--        </button>-->
+        <!--        <p id="mikeClicked"></p>-->
+        <button class="search_button" type="submit">LET'S GO</button>
+    </form>
+</div>
+
+
+<script>
+    runSpeechRecog = () => {
+        let query_input = document.getElementById('query_input');
+        let mic_button = document.getElementById('mic_button');
+        let recognition = new webkitSpeechRecognition();
+        recognition.onstart = () => {
+            mic_button.classList.add('listening')
+        };
+        recognition.onresult = (e) => {
+            let transcript = e.results[0][0].transcript;
+            query_input.value = transcript;
+            mic_button.classList.remove('listening')
+        };
+        recognition.start();
+    }
+</script>
+</body>
+
+
+</html>
