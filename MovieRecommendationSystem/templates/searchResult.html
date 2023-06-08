@@ -12,26 +12,32 @@
         <form name="movie_form" class="row_alignment" action="searchResult.html"
               style="align-self: center; margin-top: 60px">
             <img src="../images/popcorn.png" style="max-width: 90px; height: auto; object-fit: contain">
-            <input class="input_button" type="text" required id="movie_name_input_field"
-                   placeholder="Search for a Similar Movie Recommendation" name="movie_title">
+            <div class="row_alignment query_wrapper">
+                <input class="input_button" type="text" required id="movie_name_input_field"
+                       placeholder="Search for a Similar Movie Recommendation" name="movie_title">
+            </div>
+
             <button class="search_button" type="submit">LET'S GO</button>
         </form>
-        <div class="row_alignment" style="margin-top: 40px">
+        <div class="column_alignment" style="margin-top: 40px">
             <div class="column_alignment">
                 <img src="../images/userBasedImage.png"
                      style="width: 100%; margin-bottom: 20px; max-height: 70px; object-fit: contain">
-                <div id="userBasedData" class="column_alignment" style="align-self: center"></div>
+                <div id="userBasedData" class="row_alignment" style="justify-content: center; flex-wrap: wrap"></div>
             </div>
 
             <div class="column_alignment">
                 <img src="../images/itemBasedImage.png"
                      style="width: 100%; margin-bottom: 20px; max-height: 70px; object-fit: contain">
-                <div id="itemBasedData" class="column_alignment" style="align-self: center"></div>
+                <div id="itemBasedData" class="row_alignment" style="justify-content: center; flex-wrap: wrap"></div>
             </div>
         </div>
     </div>
 </div>
 <script>
+
+    let movie_titles = [];
+
     function get_movies() {
         const params = new URLSearchParams(location.search);
         const movie_title = params.get("movie_title");
@@ -46,10 +52,7 @@
                 ub_movies_list = ub_movies_list.concat(hi_ub_movies_list);
 
                 for (let j = 0; j < ub_movies_list.length; j++) {
-                    let mEl = document.createElement("a");
-                    mEl.href = "movie_detail_page.html";
-                    mEl.classList.add("search_results");
-                    mEl.innerText = ub_movies_list[j];
+                    let mEl = get_movie_element(ub_movies_list[j]);
                     dataElement.appendChild(mEl);
                 }
 
@@ -59,18 +62,48 @@
                 ib_movies_list = ib_movies_list.concat(hi_ib_movies_list);
 
                 for (let i = 0; i < ib_movies_list.length; i++) {
-                    let mEl = document.createElement("a");
-                    mEl.href = "movie_detail_page.html";
-                    mEl.classList.add("search_results");
-                    mEl.innerText = ib_movies_list[i];
+                    let mEl = get_movie_element(ib_movies_list[i]);
                     dataElement1.appendChild(mEl);
                 }
+
+                movie_titles.forEach(title => fetch_image(title));
             }
         };
 
         xhttp.open("POST", "http://localhost:8000/movie-api", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send('{"movie_title": "' + movie_title + '"}');
+    }
+
+    function get_movie_element(movie_title) {
+        movie_titles.push(movie_title);
+
+        let mEl = document.createElement("div");
+
+        let link = document.createElement("a");
+        link.href = "movie_detail_page.html";
+        link.innerText = movie_title;
+
+        let image = document.createElement("img");
+        image.id = "img " + movie_title;
+
+        mEl.appendChild(image);
+        mEl.appendChild(link);
+        mEl.classList.add("search_results");
+        mEl.classList.add("column_alignment");
+        return mEl
+    }
+
+    function fetch_image(title) {
+        fetch('http://localhost:8000/movie-image?title=' + title)
+            .then(response => response.text())
+            .then(imageUrl => {
+                const img = document.getElementById("img " + title);
+                img.src = imageUrl;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
     get_movies();

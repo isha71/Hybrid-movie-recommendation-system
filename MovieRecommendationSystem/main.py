@@ -1,3 +1,5 @@
+
+import imdb
 import pandas as pd
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -5,10 +7,10 @@ from flask_cors import CORS
 EN = "en"
 HI = "hi"
 
-en_ib_item_similarity_df = pd.read_csv("english_itemBased.csv", index_col=0)
-en_ub_item_similarity_df = pd.read_csv("english_userBased.csv", index_col=0)
-hi_ib_item_similarity_df = pd.read_csv("hindi_itemBased.csv", index_col=0)
-hi_ub_item_similarity_df = pd.read_csv("hindi_userBased.csv", index_col=0)
+en_ib_item_similarity_df = pd.read_csv("./assets/english_itemBased.csv", index_col=0)
+en_ub_item_similarity_df = pd.read_csv("./assets/english_userBased.csv", index_col=0)
+hi_ib_item_similarity_df = pd.read_csv("./assets/hindi_itemBased.csv", index_col=0)
+hi_ub_item_similarity_df = pd.read_csv("assets/hindi_userBased.csv", index_col=0)
 
 en_ib_item_similarity_df.columns = en_ib_item_similarity_df.columns.str.lower()
 en_ub_item_similarity_df.columns = en_ub_item_similarity_df.columns.str.lower()
@@ -26,8 +28,6 @@ def get_user_based_data(query, language):
             similar_score = en_ub_item_similarity_df[query]
         if language == HI:
             similar_score = hi_ub_item_similarity_df[query]
-
-        print(similar_score)
 
         if similar_score is not None:
             api_recommendations = similar_score.to_list()
@@ -80,7 +80,6 @@ def make_rec():
                 "hi_ub_rec_movies": hi_ub,
                 "hi_ib_rec_movies": hi_ib
             }
-            print(api_recommendations)
         except Exception as e:
             api_recommendations = {
                 "en_ub_rec_movies": [],
@@ -89,6 +88,19 @@ def make_rec():
                 "hi_ib_rec_movies": []
             }
         return api_recommendations
+
+
+@app.route("/movie-image", methods=["GET"])
+def get_movie_image_url():
+    url = ""
+    movie = request.args.get("title")
+    ia = imdb.Cinemagoer()
+    movies = ia.search_movie(movie)
+    if len(movies) > 0:
+        # return movies[0]['cover']
+        url = movies[0].get_fullsizeURL()
+        print(movie, url)
+    return url
 
 
 if __name__ == "__main__":

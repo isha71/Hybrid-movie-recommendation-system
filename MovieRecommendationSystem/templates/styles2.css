@@ -11,18 +11,31 @@
 }
 
 .search_results {
-    font-family: 'Irish Grover', cursive;
-    font-size: 18px;
-    padding: 18px;
+    padding: 8px;
     margin: 4px;
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     border-radius: 12px;
-    width: 400px;
+    width: calc((100% / 5) - 24px);
+}
+
+.search_results a {
+    font-family: 'Irish Grover', cursive;
+    font-size: 18px;
+    margin-top: 8px;
+    text-align: center;
+    color: white;
+}
+
+.search_results img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    align-self: center;
 }
 
 .main_content_wrapper {
-    background: rgba(207, 199, 115, 0.9);;
+    background: rgba(68, 68, 68, 0.7);;
     margin: 16px;
     padding: 16px;
     border-radius: 16px;
